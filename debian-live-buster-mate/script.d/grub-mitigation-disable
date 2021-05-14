@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# https://www.maketecheasier.com/check-linux-meltdown-spectre-vulnerability/
+# https://linuxreviews.org/HOWTO_make_Linux_run_blazing_fast_(again)_on_Intel_CPUs
+
+set -e 
+set -o pipefail
+
+grep . /sys/devices/system/cpu/vulnerabilities/*
+
+mkdir -p /etc/default/grub.d
+
+cat << EOF > /etc/default/grub.d/mitigation.cfg 
+GRUB_CMDLINE_LINUX_DEFAULT="\$GRUB_CMDLINE_LINUX_DEFAULT noibrs noibpb nopti nospectre_v2 nospectre_v1 l1tf=off nospec_store_bypass_disable no_stf_barrier mds=off mitigations=off"
+EOF
+
+update-grub
+

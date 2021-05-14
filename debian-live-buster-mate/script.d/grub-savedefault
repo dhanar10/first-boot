@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+mkdir -p /etc/default/grub.d
+
+cat << EOF > "/etc/default/grub.d/savedefault.cfg"
+GRUB_SAVEDEFAULT=true
+GRUB_DEFAULT=saved
+EOF
+
+update-grub
+

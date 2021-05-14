@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+function keep_orig() 
+{
+	cp -n "$1" "$1.orig" && chmod a-x "$1.orig"
+}
+
+MIRROR="http://deb.debian.org/debian"
+CODENAME="$(lsb_release -cs)"
+COMPONENTS="main contrib non-free"
+
+keep_orig "/etc/apt/sources.list"
+
+cat << EOF > "/etc/apt/sources.list"
+deb $MIRROR $CODENAME $COMPONENTS
+#deb-src $MIRROR $CODENAME $COMPONENTS
+
+deb $MIRROR $CODENAME-updates $COMPONENTS
+#deb-src $MIRROR $CODENAME-updates $COMPONENTS
+
+deb http://deb.debian.org/debian-security/ $CODENAME/updates $COMPONENTS
+#deb-src http://deb.debian.org/debian-security/ $CODENAME/updates $COMPONENTS
+
+#deb $MIRROR $CODENAME-backports $COMPONENTS
+#deb-src $MIRROR $CODENAME-backports $COMPONENTS
+EOF
+
+apt update
+

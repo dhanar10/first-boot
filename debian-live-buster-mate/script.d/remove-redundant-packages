@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# For Debian Live Buster MATE
+
+set -e
+set -o pipefail
+
+apt -y purge \
+    khmerconverter* \
+    fcitx* \
+    xiterm+thai* \
+    xterm* \
+    mlterm*
+apt -y --purge autoremove
+

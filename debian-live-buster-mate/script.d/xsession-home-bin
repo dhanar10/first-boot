@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+# http://unix.stackexchange.com/questions/131310/add-home-bin-to-path-for-a-single-user-in-debian-wheezy-with-lxde
+
+cat << EOF > /etc/X11/Xsession.d/90user-profile
+if [ -f "\$HOME/.profile" ]; then
+	. "\$HOME/.profile"
+fi
+EOF
+

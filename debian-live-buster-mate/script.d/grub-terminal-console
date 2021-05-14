@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+mkdir -p /etc/default/grub.d
+
+cat << EOF > "/etc/default/grub.d/terminal.cfg"
+GRUB_TERMINAL=console
+EOF
+
+cat << EOF > "/boot/grub/custom.cfg"
+set menu_color_normal=white/black
+set menu_color_highlight=black/light-gray
+EOF
+
+update-grub
+
