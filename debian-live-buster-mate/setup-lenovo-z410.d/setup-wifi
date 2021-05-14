@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+SCRIPT_DIR="$(readlink -f "$0" | xargs dirname)"
+
+if [ $(id -u) -ne 0 ]; then
+    sudo bash "$0" "$@"
+    exit $?
+fi
+
+apt update
+apt install broadcom-sta-dkms
+
+# https://askubuntu.com/a/905019
+
+cat /etc/NetworkManager/conf.d/wifi.scan-rand-mac-address.conf << EOF
+[device]
+wifi.scan-rand-mac-address=no
+EOF
+service network-manager restart
+
