@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-SCRIPT_DIR="setup.d"
+SCRIPT_DIR="$(basename "$0").d"
 
 if [ $(id -u) -ne 0 ]; then
     sudo bash "$0" "$@"

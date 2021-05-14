@@ -5,12 +5,5 @@ set -o pipefail
 
 SCRIPT_DIR="$(readlink -f "$0" | xargs dirname)"
 
-if [ $(id -u) -ne 0 ]; then
-    sudo bash "$0" "$@"
-    exit $?
-fi
-
-# Install BCM43142 bluetooth firmware
-
 hex2hcd -o "/lib/firmware/brcm/BCM43142A0-105b-e065.hcd" "$SCRIPT_DIR/BCM43142A0_001.001.011.0122.0145.hex"
 
