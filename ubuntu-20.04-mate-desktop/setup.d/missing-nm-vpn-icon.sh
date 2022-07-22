@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# https://bugs.launchpad.net/bugs/1875066
+
 set -e
 set -o pipefail
 
